@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 250px;
-  height: 350px;
+  height: 380px;
   background-color: #ACD7EC;
   border-radius: 4px;
   padding: 1rem;

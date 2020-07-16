@@ -14,7 +14,7 @@ const CardList = () => {
     `;
     const LoadDiv = styled.div`
         width: 250px;
-        height: 350px;
+        height: 380px;
         border-radius: 4px;
         padding: 1rem;
         margin: 1rem;
@@ -154,14 +154,25 @@ const CardList = () => {
            (avg)
         )
     }
+
+    const avgKills = (data) =>{
+        let kills = []
+        let avg = 0
+        data.map(stats => {kills = [...kills, stats.kills]
+            avg = average(kills)
+        })
+        return(
+           (avg)
+        )
+    }
     
     
     
     return(
         <>
-        {/* {console.log(profile)}
-        {console.log('M',matchData)}
-        {console.log(avgGpm(matchData))} */}
+        {console.log(profile)}
+        {console.log('M',matchData1)}
+        {console.log(avgGpm(matchData))}
             <Title main> Birdgang </Title>
             <Wrapper>
                 
@@ -171,7 +182,8 @@ const CardList = () => {
                 stats={'stats'} 
                 img={profile.avatarfull} 
                 gpm={avgGpm(matchData)} 
-                damage={avgDmg(matchData)} />) : 
+                damage={avgDmg(matchData)}
+                kills={avgKills(matchData)} />) : 
                 <LoadDiv>
                 <Skeleton variant="text" />
                 <Skeleton variant="circle" width={40} height={40} />
@@ -184,7 +196,8 @@ const CardList = () => {
                 stats={'stats'} 
                 img={profile1.avatarfull} 
                 gpm={avgGpm(matchData1)} 
-                damage={avgDmg(matchData1)} />) : 
+                damage={avgDmg(matchData1)}
+                kills={avgKills(matchData1)} />) : 
                 <LoadDiv>
                 <Skeleton variant="text" />
                 <Skeleton variant="circle" width={40} height={40} />
@@ -197,7 +210,8 @@ const CardList = () => {
                 stats={'stats'} 
                 img={profile2.avatarfull} 
                 gpm={avgGpm(matchData2)} 
-                damage={avgDmg(matchData2)} />) : 
+                damage={avgDmg(matchData2)} 
+                kills={avgKills(matchData1)} />) : 
                 <LoadDiv>
                 <Skeleton variant="text" />
                 <Skeleton variant="circle" width={40} height={40} />
