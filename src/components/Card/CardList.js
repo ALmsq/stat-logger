@@ -14,7 +14,7 @@ const CardList = () => {
     `;
     const LoadDiv = styled.div`
         width: 250px;
-        height: 250px;
+        height: 350px;
         border-radius: 4px;
         padding: 1rem;
         margin: 1rem;
@@ -25,6 +25,8 @@ const CardList = () => {
     const [profile, setProfile] = useState([])
     const [matchData, setMatchData] = useState([])
     const timeoutRef = useRef(null)
+
+    let average = (array) => array.reduce((a, b) => a + b) / array.length
     
     useEffect(() =>{
         let info = []
@@ -47,31 +49,68 @@ const CardList = () => {
             .then(res => res.json())
             .then((data) =>{
                 match = [...match, data]
-                setMatchData(match)
+                setMatchData(match[0])
                 match[0].map(stats => deaths = [...deaths, stats.deaths])
-                console.log(match[0])
-                console.log(deaths.length)
-                let average = (array) => array.reduce((a, b) => a + b) / array.length
+                
                 console.log('avg:', average(deaths))
-
             })
-        }, 1000)
+        }, 2000)
         
     },[])
+
+    const avgDeaths = (data) =>{
+        let deaths = []
+        let avg = 0
+        data.map(stats => {deaths = [...deaths, stats.deaths]
+            avg = average(deaths)
+        })
+        return(
+           (avg)
+        )
+    }
+    const avgGpm = (data) =>{
+        let gpm = []
+        let avg = 0
+        data.map(stats => {gpm = [...gpm, stats.gold_per_min]
+            avg = average(gpm)
+        })
+        return(
+           (avg)
+        )
+    }
+
+    const avgDmg = (data) =>{
+        let dmg = []
+        let avg = 0
+        data.map(stats => {dmg = [...dmg, stats.hero_damage]
+            avg = average(dmg)
+        })
+        return(
+           (avg)
+        )
+    }
     
     
     
     return(
         <>
         {console.log(profile)}
+        {console.log('M',matchData)}
+        {console.log(avgGpm(matchData))}
             <Title main> Our Stats </Title>
             <Wrapper>
                 
-                {name? (<Card title={name} description={'description'} stats={'stats'} img={profile.avatarfull} />) : 
+                {name? (<Card 
+                title={name} 
+                deaths={avgDeaths(matchData)} 
+                stats={'stats'} 
+                img={profile.avatarfull} 
+                gpm={avgGpm(matchData)} 
+                damage={avgDmg(matchData)} />) : 
                 <LoadDiv>
                 <Skeleton variant="text" />
                 <Skeleton variant="circle" width={40} height={40} />
-                <Skeleton variant="rect" width={250} height={200} />
+                <Skeleton variant="rect" width={250} height={290} />
                 </LoadDiv>}
                 
                 
