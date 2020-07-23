@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   background-color: #ACD7EC;
   border-radius: 4px;
   padding: 1rem;
-  margin: 1rem;
+  margin: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
@@ -34,9 +34,15 @@ export const Img = styled.img`
 `
 
 export const Description = styled.p`
-  color: white;
+  
   text-align: center;
   color: black;
 `;
 
+export const MMR = styled.p`
+  color: black;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 900;
+`
 
