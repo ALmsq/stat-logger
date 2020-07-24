@@ -198,9 +198,9 @@ const CardList = () => {
                 <br></br>
                 <Skeleton variant="text" height={40} />
                 <br></br>
-                <Skeleton variant="circle" width={50} height={50} style={{marginLeft: '100px' }} />
+                <Skeleton variant="circle" width={50} height={50} style={{marginLeft: 'auto', marginRight: 'auto' }} />
                 <br></br>
-                <Skeleton variant="rect" width={200} height={200} style={{marginLeft: 'auto', marginRight: 'auto'}} />
+                <Skeleton variant="rect" width={200} height={150} style={{marginLeft: 'auto', marginRight: 'auto', borderRadius: '6px'}} />
                 </LoadDiv>}
                 
                 {name1? (<Card
@@ -217,9 +217,9 @@ const CardList = () => {
                 <br></br>
                 <Skeleton variant="text" height={40} />
                 <br></br>
-                <Skeleton variant="circle" width={50} height={50} style={{marginLeft: '100px' }} />
+                <Skeleton variant="circle" width={50} height={50} style={{marginLeft: 'auto', marginRight: 'auto' }} />
                 <br></br>
-                <Skeleton variant="rect" width={200} height={200} style={{marginLeft: 'auto', marginRight: 'auto'}} />
+                <Skeleton variant="rect" width={200} height={150} style={{marginLeft: 'auto', marginRight: 'auto', borderRadius: '6px'}} />
                 </LoadDiv>}
 
                 {name2? (<Card
@@ -236,9 +236,9 @@ const CardList = () => {
                 <br></br>
                 <Skeleton variant="text" height={40} />
                 <br></br>
-                <Skeleton variant="circle" width={50} height={50} style={{marginLeft: '100px' }} />
+                <Skeleton variant="circle" width={50} height={50} style={{ marginLeft: 'auto', marginRight: 'auto' }} />
                 <br></br>
-                <Skeleton variant="rect" width={200} height={200} style={{marginLeft: 'auto', marginRight: 'auto'}} />
+                <Skeleton variant="rect" width={200} height={150} style={{ marginLeft: 'auto', marginRight: 'auto', borderRadius: '6px'}} />
                 </LoadDiv>}
                 
                 
