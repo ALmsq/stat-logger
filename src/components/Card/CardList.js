@@ -4,6 +4,7 @@ import {Title} from './Card.styled'
 import styled from 'styled-components'
 import Skeleton from '@material-ui/lab/Skeleton'
 // import { Skeleton } from 'antd'
+import { useGlobal, setGlobal } from 'reactn'
 
 
 
@@ -31,6 +32,8 @@ const CardList = () => {
     const [profile, setProfile] = useState([])
     const [matchData, setMatchData] = useState([])
     const timeoutRef = useRef(null)
+
+    
 
     let average = (array) => array.reduce((a, b) => a + b) / array.length
     
@@ -129,6 +132,14 @@ const CardList = () => {
             })
         }, 2000)  
     },[])
+
+    ////REACTN////
+    setGlobal({
+        profile: profile,
+        profile1: profile1,
+        profile2: profile2,
+    })
+/////////////
 
     const avgDeaths = (data) =>{
         let deaths = []
