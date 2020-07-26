@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import PostForm from './PostForm'
 import { Button, List, Avatar } from 'antd'
 import axios from 'axios'
@@ -9,7 +9,21 @@ import { useForkRef } from '@material-ui/core'
 
 const Posts = (props) => {
 
-
+    const [post, setPost] = useState([])
+    const [count, setCount] = useState(0)
+    
+    useEffect(() =>{
+        let arr = []
+        fetch('http://localhost:4000/posts')
+        .then(res => res.json())
+        .then((data) =>{
+          setPost(data)
+          console.log(data)
+        })
+        console.log(post.map(m => m.like))
+        arr = [...arr, post.map(m => m.like)]
+        
+      },[count])
 
 
     const handleDelete = (e, post) => {
@@ -24,24 +38,22 @@ const Posts = (props) => {
         window.location.reload()
     }
 
-    const [count, setCount] = useState(0)
+    
     const [postId, setPostId] = useState('')
     
-
-    const handleLike = (e, post) => {
+    const handleLike = useCallback((e, post) => {
         
-        setPostId(post._id)
-        console.log(postId)
         let likeNum = 0
-        setCount(count + 1)
+        setPostId(post._id)
         axios.get(`http://localhost:4000/post/${post._id}`)
         .then((res) =>{
             likeNum = res.data.like
+            setCount(res.data.like)
         })
         .catch((error) =>{
             console.log(error)
         })
-
+            
             setTimeout(() => {
                 axios.put(`http://localhost:4000/post/${post._id}`, {
                 like: likeNum + 1
@@ -54,9 +66,12 @@ const Posts = (props) => {
             })
             
             }, 100);
-            
-            
-        }
+
+            console.log(props.post.map(m => m.like))
+               
+        })
+
+        
 
     const handleDislike = (e, post) => {
         console.log(post)
@@ -76,6 +91,8 @@ const Posts = (props) => {
 
     let image = ''
 
+    
+
 
 
     return (
@@ -87,7 +104,7 @@ const Posts = (props) => {
             <List
                 style={{marginLeft: '15%', marginRight: '15%', marginBottom: '5%'}}
                 itemLayout="horizontal"
-                dataSource={props.post}
+                dataSource={post}
                 renderItem={item => {
                     
                     {if(item.name.toUpperCase() === 'PkSalsa'.toUpperCase()){
@@ -100,6 +117,7 @@ const Posts = (props) => {
                         image = "https://image.flaticon.com/icons/svg/3166/3166680.svg"
                     }
                 }
+                
                     return(
                         <List.Item key={item._id}>
                         <List.Item.Meta
@@ -109,13 +127,20 @@ const Posts = (props) => {
                       title={item.name}
                       description={item.post}
                     />
+                    
                     <div onClick={(e => {
                         handleLike(e, item)
-                        
-                        console.log(item._id)
-                        })} style={{marginRight: '5px'}}><Button type='primary' size='small' shape='circle' icon={<LikeOutlined/>}/><div key={item._id} style={{textAlign: 'center'}}>{item._id == postId? item.like+count : item.like}</div></div>
+                        console.log(item.like)
+                        setCount(count + 1)
+                    })}
 
-                    <div style={{marginRight: '5px'}}><Button onClick={e => handleDislike(e, item)} type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center'}}>{item.dislike}</div></div>
+                    style={{marginRight: '5px'}}
+                    
+                    key={item._id}>
+                        <Button type='primary' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{item.like}</div></div>
+
+                    <div style={{marginRight: '5px'}}>
+                        <Button onClick={e => handleDislike(e, item)} type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center'}}>{item.dislike}</div></div>
 
                     <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button>
                   </List.Item>
