@@ -11,19 +11,9 @@ const Posts = (props) => {
 
     const [post, setPost] = useState([])
     const [count, setCount] = useState(0)
+    const [postId, setPostId] = useState('')
     
-    useEffect(() =>{
-        let arr = []
-        fetch('http://localhost:4000/posts')
-        .then(res => res.json())
-        .then((data) =>{
-          setPost(data)
-          console.log(data)
-        })
-        console.log(post.map(m => m.like))
-        arr = [...arr, post.map(m => m.like)]
-        
-      },[count])
+    
 
 
     const handleDelete = (e, post) => {
@@ -38,25 +28,13 @@ const Posts = (props) => {
         window.location.reload()
     }
 
+    const [count1, setCount1] = useState([])
     
-    const [postId, setPostId] = useState('')
-    
-    const handleLike = useCallback((e, post) => {
-        
-        let likeNum = 0
+    const handleLike = (e, post) => {
         setPostId(post._id)
-        axios.get(`http://localhost:4000/post/${post._id}`)
-        .then((res) =>{
-            likeNum = res.data.like
-            setCount(res.data.like)
-        })
-        .catch((error) =>{
-            console.log(error)
-        })
-            
-            setTimeout(() => {
-                axios.put(`http://localhost:4000/post/${post._id}`, {
-                like: likeNum + 1
+        let likeNum = 1
+        axios.put(`http://localhost:4000/post/${post._id}`, {
+                like: post.like+1
             })
             .then((res) =>{
                 console.log(res)
@@ -64,12 +42,47 @@ const Posts = (props) => {
             .catch((err) =>{
                 console.log(err)
             })
+
+        
+        // setPostId(post._id)
+        // axios.get(`http://localhost:4000/post/${post._id}`)
+        // .then((res) =>{
+        //     likeNum = res.data.like
             
-            }, 100);
+        //     setCount1(res.data)
+        //     console.log('post: ', post.like++)
+        // })
+        // .catch((error) =>{
+        //     console.log(error)
+        // })
+            // setTimeout(() => {
+            //     axios.put(`http://localhost:4000/post/${post._id}`, {
+            //     like: likeNum + 1
+            // })
+            // .then((res) =>{
+            //     console.log(res)
+            // })
+            // .catch((err) =>{
+            //     console.log(err)
+            // })
+            
+            // }, 100);
 
             console.log(props.post.map(m => m.like))
                
-        })
+        }
+
+        useEffect(() =>{
+            
+            fetch(`http://localhost:4000/post/${postId}`)
+            .then(res => res.json())
+            .then((data) =>{
+              setPost(data)
+              console.log('fetched ', data)
+            })
+            
+            
+          },[postId])
 
         
 
@@ -91,6 +104,19 @@ const Posts = (props) => {
 
     let image = ''
 
+    //////////////////////////////////////////////////////
+    //likes to setstate then --> to update backend with useeffect onchange
+    /////////////////////////////////////////////////////
+
+    const [likeCount, setLikeCount] = useState(0)
+
+
+
+
+
+
+
+
     
 
 
@@ -98,13 +124,13 @@ const Posts = (props) => {
     return (
         <div>
             
-
+            {console.log(props.post)}
             <PostForm/>
 
             <List
                 style={{marginLeft: '15%', marginRight: '15%', marginBottom: '5%'}}
                 itemLayout="horizontal"
-                dataSource={post}
+                dataSource={props.post}
                 renderItem={item => {
                     
                     {if(item.name.toUpperCase() === 'PkSalsa'.toUpperCase()){
@@ -129,18 +155,22 @@ const Posts = (props) => {
                     />
                     
                     <div onClick={(e => {
+                        setCount(item.like)
                         handleLike(e, item)
                         console.log(item.like)
-                        setCount(count + 1)
+                        
+                        console.log(count)
                     })}
-
                     style={{marginRight: '5px'}}
-                    
                     key={item._id}>
-                        <Button type='primary' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{item.like}</div></div>
-
+                        <Button type='primary' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{count > 1 && item._id == postId ? count +1: item.like}</div></div>
                     <div style={{marginRight: '5px'}}>
-                        <Button onClick={e => handleDislike(e, item)} type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center'}}>{item.dislike}</div></div>
+                        <Button onClick={(e) => {
+                            handleDislike(e, item) 
+                            
+                            console.log(count) 
+                            }} 
+                            type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center'}}>{item.dislike}</div></div>
 
                     <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button>
                   </List.Item>
