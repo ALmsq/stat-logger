@@ -11,7 +11,9 @@ const Posts = (props) => {
 
     const [post, setPost] = useState([])
     const [count, setCount] = useState(0)
+    const [dislikeCount, setDislikeCount] = useState(0)
     const [postId, setPostId] = useState('')
+    const [postId2, setPostId2] = useState('')
     
     
 
@@ -28,11 +30,11 @@ const Posts = (props) => {
         window.location.reload()
     }
 
-    const [count1, setCount1] = useState([])
+    
     
     const handleLike = (e, post) => {
         setPostId(post._id)
-        let likeNum = 1
+        
         axios.put(`http://localhost:4000/post/${post._id}`, {
                 like: post.like+1
             })
@@ -42,54 +44,45 @@ const Posts = (props) => {
             .catch((err) =>{
                 console.log(err)
             })
-
-        
-        // setPostId(post._id)
-        // axios.get(`http://localhost:4000/post/${post._id}`)
-        // .then((res) =>{
-        //     likeNum = res.data.like
-            
-        //     setCount1(res.data)
-        //     console.log('post: ', post.like++)
-        // })
-        // .catch((error) =>{
-        //     console.log(error)
-        // })
-            // setTimeout(() => {
-            //     axios.put(`http://localhost:4000/post/${post._id}`, {
-            //     like: likeNum + 1
-            // })
-            // .then((res) =>{
-            //     console.log(res)
-            // })
-            // .catch((err) =>{
-            //     console.log(err)
-            // })
-            
-            // }, 100);
-
-            console.log(props.post.map(m => m.like))
                
         }
+
+    const handleDislike = (e, post) => {
+        setPostId2(post._id)
+            axios.put(`http://localhost:4000/post/${post._id}`, {
+                dislike: post.dislike+1
+            })
+            .then((res) =>{
+                console.log(res)
+            })
+            .catch((err) =>{
+                console.log(err)
+            })
+            
+            }
 
         useEffect(() =>{
             
             fetch(`http://localhost:4000/post/${postId}`)
             .then(res => res.json())
             .then((data) =>{
-              setPost(data)
-              console.log('fetched ', data)
+              
+              console.log('fetched likes ', data.like)
             })
-            
-            
           },[postId])
+
+        useEffect(() => {
+            fetch(`http://localhost:4000/post/${postId2}`)
+            .then(res => res.json())
+            .then((data) =>{
+              
+              console.log('fetched dislikes ', data.dislike)
+            })
+        }, [postId2])
 
         
 
-    const handleDislike = (e, post) => {
-        console.log(post)
-
-        }
+    
 
     
     const [posts, setPosts] = useState([])
@@ -158,16 +151,19 @@ const Posts = (props) => {
                         handleLike(e, item)
                         console.log(count)
                     })}
+
                     style={{marginRight: '5px'}}
                     key={item._id}>
                         <Button type='submit' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{(count >= 0 && item._id == postId ? count +1 : item.like)}</div></div>
-                    <div style={{marginRight: '5px'}}>
-                        <Button onClick={(e) => {
-                            handleDislike(e, item) 
-                            
-                            console.log(count) 
-                            }} 
-                            type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center'}}>{item.dislike}</div></div>
+
+                    <div onClick={(e => {
+                        setDislikeCount(item.dislike)
+                        handleDislike(e, item)
+                        console.log(dislikeCount)
+                    })}
+                    style={{marginRight: '5px'}}
+                    >
+                        <Button type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center', color: 'red'}}>{(dislikeCount >= 0 && item._id == postId2 ? dislikeCount +1 : item.dislike)}</div></div>
 
                     <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button>
                   </List.Item>
