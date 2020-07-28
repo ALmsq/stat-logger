@@ -124,7 +124,6 @@ const Posts = (props) => {
     return (
         <div>
             
-            {console.log(props.post)}
             <PostForm/>
 
             <List
@@ -157,13 +156,11 @@ const Posts = (props) => {
                     <div onClick={(e => {
                         setCount(item.like)
                         handleLike(e, item)
-                        console.log(item.like)
-                        
                         console.log(count)
                     })}
                     style={{marginRight: '5px'}}
                     key={item._id}>
-                        <Button type='primary' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{count > 1 && item._id == postId ? count +1: item.like}</div></div>
+                        <Button type='submit' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{(count >= 0 && item._id == postId ? count +1 : item.like)}</div></div>
                     <div style={{marginRight: '5px'}}>
                         <Button onClick={(e) => {
                             handleDislike(e, item) 
