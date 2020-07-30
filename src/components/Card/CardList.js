@@ -187,12 +187,12 @@ const CardList = () => {
     
     
     return(
-        <div style={{marginTop: '100px'}}>
+        <div style={{marginTop: '50px'}}>
         {/* {console.log(all.estimate)}
         {console.log(profile)}
         {console.log('M',matchData1)}
         {console.log(avgGpm(matchData))} */}
-            <Title main> Birdgang </Title>
+            <Title main> Stats </Title>
             <Wrapper>
                 
                 {name? (<Card
