@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import PostForm from './PostForm'
-import { Button, List, Avatar } from 'antd'
+import { Button, List, Avatar, Divider } from 'antd'
 import axios from 'axios'
 import { useGlobal } from 'reactn'
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons'
@@ -137,7 +137,7 @@ const Posts = (props) => {
                 }
                 
                     return(
-                        <List.Item key={item._id}>
+                        <List.Item style={{borderBottom: '1px solid #dadada' }} key={item._id}>
                         <List.Item.Meta
                         
 
@@ -166,7 +166,9 @@ const Posts = (props) => {
                         <Button type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center', color: 'red'}}>{(dislikeCount >= 0 && item._id == postId2 ? dislikeCount +1 : item.dislike)}</div></div>
 
                     <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button>
+                    
                   </List.Item>
+                
                     )
                 }}
             />

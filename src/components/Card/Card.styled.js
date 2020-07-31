@@ -8,7 +8,10 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   width: 250px;
   height: 380px;
-  background-color: #ACD7EC;
+  background-color: #724E91;
+
+  background: linear-gradient(0deg, rgba(207,58,57,1) 0%, rgba(235,80,52,1) 100%);
+
   border-radius: 4px;
   padding: 1rem;
   margin: 2rem;

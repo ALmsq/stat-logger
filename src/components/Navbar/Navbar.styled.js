@@ -3,8 +3,8 @@ import styled from 'styled-components'
 export const Nav = styled.div`
     display: flex;
     height: 3rem;
-    box-shadow: 0 2px 8px #f0f1f2;
-    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px #bdbdbd;
+    background-color: #F5F0F6;
     justify-content: space-around;
 `
 

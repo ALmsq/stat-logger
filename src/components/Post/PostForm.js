@@ -8,10 +8,10 @@ import axios from 'axios'
 const layout = {
 
     labelCol: {
-      span: 8,
+      span: 3,
     },
     wrapperCol: {
-      span: 8,
+      span: 20,
     },
   };
   const tailLayout = {

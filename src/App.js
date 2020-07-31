@@ -11,6 +11,7 @@ function App() {
 
   const [post, setPost] = useState([])
 
+
   useEffect(() =>{
     fetch('http://localhost:4000/posts')
     .then(res => res.json())
@@ -34,7 +35,7 @@ function App() {
         </Fragment>}/>        
         <Route path='/login' render={() => 
         <Fragment>
-          <Login/>
+          <Login />
         </Fragment>}/>
       </Switch>
     </div>
