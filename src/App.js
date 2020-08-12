@@ -5,6 +5,7 @@ import CardList from './components/Card/CardList'
 import Post from './components/Post/Post'
 import NavBar from './components/Navbar/Navbar'
 import Login from './components/Login/Login'
+import Register from './components/Login/Register'
 import { Fragment } from 'reactn';
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
         <Route path='/login' render={() => 
         <Fragment>
           <Login />
+        </Fragment>}/>
+        <Route path='/register' render={() => 
+        <Fragment>
+          <Register />
         </Fragment>}/>
       </Switch>
     </div>

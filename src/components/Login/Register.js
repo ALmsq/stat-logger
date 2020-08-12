@@ -5,7 +5,7 @@ import { Row, Col, Form, Input, Button, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import axios from 'axios'
 
-const Login = (props) => {
+const Register = (props) => {
 
     const onFinish = values => {
         console.log('Success:', values);
@@ -51,7 +51,7 @@ const Login = (props) => {
                             height: 'auto', 
                             width: 'auto',
                             margin: '25px'
-                            }}> LOGIN
+                            }}> REGISTER
                             <Form
                                 name="normal_login"
                                 className="login-form"
@@ -91,4 +91,4 @@ const Login = (props) => {
     </Wrapper>
     )
 }
-export default Login
+export default Register

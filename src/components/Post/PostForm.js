@@ -50,7 +50,7 @@ const layout = {
 
         name="basic"
         initialValues={{
-          remember: true,
+        remember: true,
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}

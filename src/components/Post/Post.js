@@ -127,9 +127,9 @@ const Posts = (props) => {
                     
                     {if(item.name.toUpperCase() === 'PkSalsa'.toUpperCase()){
                         image = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/04/04b36c6ea07c7747f4da718a5a2f33dcfa695abf_full.jpg"
-                    }else if(item.name.toUpperCase() == 'Psychotic'.toUpperCase()){
+                    }else if(item.name.toUpperCase() === 'Psychotic'.toUpperCase()){
                         image = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/27/27b0405249110d7edf10bfc7c99414f2d720e02d_full.jpg"
-                    }else if(item.name.toUpperCase() == 'PkChips'.toUpperCase()){
+                    }else if(item.name.toUpperCase() === 'PkChips'.toUpperCase()){
                         image = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2e/2e86ceb7ed6d7d152a074a6d77ec826fc9247700_full.jpg"
                     }else{
                         image = "https://image.flaticon.com/icons/svg/3166/3166680.svg"
@@ -154,7 +154,7 @@ const Posts = (props) => {
 
                     style={{marginRight: '5px'}}
                     key={item._id}>
-                        <Button type='submit' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{(count >= 0 && item._id == postId ? count +1 : item.like)}</div></div>
+                        <Button type='submit' size='small' shape='circle' icon={<LikeOutlined/>}/><div style={{textAlign: 'center'}}>{(count >= 0 && item._id === postId ? count +1 : item.like)}</div></div>
 
                     <div onClick={(e => {
                         setDislikeCount(item.dislike)
@@ -163,7 +163,7 @@ const Posts = (props) => {
                     })}
                     style={{marginRight: '5px'}}
                     >
-                        <Button type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center', color: 'red'}}>{(dislikeCount >= 0 && item._id == postId2 ? dislikeCount +1 : item.dislike)}</div></div>
+                        <Button type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center', color: 'red'}}>{(dislikeCount >= 0 && item._id === postId2 ? dislikeCount +1 : item.dislike)}</div></div>
 
                     <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button>
                     
