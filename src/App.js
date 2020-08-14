@@ -7,10 +7,14 @@ import NavBar from './components/Navbar/Navbar'
 import Login from './components/Login/Login'
 import Register from './components/Login/Register'
 import { Fragment } from 'reactn';
+import { Provider } from 'react-redux'
+import store from './store'
 
 function App() {
 
   const [post, setPost] = useState([])
+
+
 
 
   useEffect(() =>{
@@ -19,6 +23,7 @@ function App() {
     .then((data) =>{
       setPost(data)
     })
+    
   },[])
   
   useEffect(() =>{
@@ -26,7 +31,8 @@ function App() {
   },[])
 
   return (
-    <div>
+    <Provider store = {store}>
+      <div>
       <Switch>
         <Route exact path='/' render={() => 
         <Fragment>
@@ -41,9 +47,10 @@ function App() {
         <Route path='/register' render={() => 
         <Fragment>
           <Register />
-        </Fragment>}/>
+        </Fragment>}/>c 
       </Switch>
     </div>
+    </Provider>
   );
 }
 

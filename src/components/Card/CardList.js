@@ -69,6 +69,7 @@ const CardList = () => {
     const [all1, setAll1] = useState([])
     const [profile1, setProfile1] = useState([])
     const [matchData1, setMatchData1] = useState([])
+    
     const timeoutRef1 = useRef(null)
     
     useEffect(() =>{

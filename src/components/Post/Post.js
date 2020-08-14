@@ -28,7 +28,7 @@ const Posts = (props) => {
             console.log(err)
         })
         window.location.reload()
-    }
+    } 
 
     
     
