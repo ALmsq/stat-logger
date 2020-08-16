@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginUser, logoutUser } from '../../Redux/Actions/authActions'
+import { useHistory } from 'react-router-dom'
+
 import LoginBackground from './LoginBackground'
 import { FormDiv, Wrapper } from './Login.styled'
 import { Row, Col, Form, Input, Button, Checkbox } from 'antd'
@@ -6,27 +10,48 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import axios from 'axios'
 
 const Login = (props) => {
+    const user = useSelector(state => state.auth.user )
+    const auth = useSelector(state => state.auth)
+    const errors = useSelector(state => state.errors)
+    
 
+    const dispatch = useDispatch()
+    const [login, setLogin] = useState({
+        username: '',
+        password: ''
+    })
+
+    const onChange = e => {
+        setLogin({ ...login, [e.target.name]: e.target.value})
+        console.log(login)
+    }
+
+    const history = useHistory()
     const onFinish = values => {
         console.log('Success:', values);
         console.log(values.password)
         console.log(values.username)
-        axios.get('http://localhost:4000/api/auth/user')
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
-        // window.location.reload()
+        dispatch(loginUser(login))
+        console.log(props)
+        console.log(user.username)
+        if(auth.isAuthenticated){
+            history.push('/')}
       };
 
+      const logoutClick = () => {
+          dispatch(logoutUser())
+      }
+
+      useEffect(() => {
+        if(auth.isAuthenticated){
+            history.push('/')
+        }else if(errors.usernamenotfound){
+            alert(errors.usernamenotfound)
+        }
+      }, [errors, auth])
       
 
-      
-      
-    
-
+    const {username, password} = login
 
     return(
         <Wrapper>
@@ -60,15 +85,20 @@ const Login = (props) => {
                                 >
                                 <Form.Item
                                     name="username"
+                                    value={username}
+                                    onChange={onChange}
                                     rules={[{ required: true, message: 'Please input your Username!' }]}
                                 >
-                                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                                    <Input name='username' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                                 </Form.Item>
                                 <Form.Item
                                     name="password"
+                                    value={password}
+                                    onChange={onChange}
                                     rules={[{ required: true, message: 'Please input your Password!' }]}
                                 >
                                     <Input
+                                    name='password'
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
                                     placeholder="Password"
@@ -82,6 +112,13 @@ const Login = (props) => {
                                     </Button>
                                     
                                 </Form.Item>
+                                <div onClick={logoutClick}>
+                                    logout
+                                </div>
+                                <div>
+                                    {user.username ? user.username : ''}
+                                </div>
+                                
                             </Form>
                         </div>
                     </Col>

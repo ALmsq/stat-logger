@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { registerUser } from '../../Redux/Actions/authActions'
+import { useHistory } from 'react-router-dom'
+
 import LoginBackground from './LoginBackground'
 import { FormDiv, Wrapper } from './Login.styled'
 import { Row, Col, Form, Input, Button, Checkbox } from 'antd'
@@ -7,27 +11,45 @@ import axios from 'axios'
 
 const Register = (props) => {
 
+    const auth = useSelector(state => state.auth)
+
+    const dispatch = useDispatch()
+    const [registration, setRegistration] = useState({
+        username: '',
+        password: '',
+        password2: '',
+    })
+
+    const onChange = e => {
+        setRegistration({ ...registration, [e.target.name]: e.target.value})
+        console.log(registration)
+      }
+
+    const history = useHistory()
     const onFinish = values => {
         console.log('Success:', values);
         console.log(values.password)
         console.log(values.username)
-        axios.get('http://localhost:4000/api/auth/user')
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
-        // window.location.reload()
+        
+        dispatch(registerUser(registration, history))
+        // history.push('/login')
       };
+
+    useEffect(() => {
+        if(auth.isAuthenticated){
+            history.push('/')
+        }
+    })
+
+      
 
       
 
       
       
     
-
-
+    const {username, password, password2 } = registration
+    
     return(
         <Wrapper>
         {/* {getUsers()} */}
@@ -57,19 +79,24 @@ const Register = (props) => {
                                 name="normal_login"
                                 className="login-form"
                                 initialValues={{ remember: true }}
-                                  onFinish={onFinish}
+                                  onFinish={onFinish} 
                                 >
                                 <Form.Item
                                     name="username"
+                                    value={username}
+                                    onChange={onChange}
                                     rules={[{ required: true, message: 'Please input your Username!' }]}
                                 >
-                                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                                    <Input name="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                                 </Form.Item>
                                 <Form.Item
                                     name="password"
+                                    value={password}
+                                    onChange={onChange}
                                     rules={[{ required: true, message: 'Please input your Password!' }]}
                                 >
                                     <Input
+                                    name='password'
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
                                     placeholder="Password"
@@ -77,11 +104,14 @@ const Register = (props) => {
                                 </Form.Item>
                                 <Form.Item
                                     name="password2"
+                                    value={password2}
+                                    onChange={onChange}
                                     rules={[{ required: true, message: 'Please confirm your Password!' }]}
                                 >
                                     <Input
+                                    name='password2'
                                     prefix={<LockOutlined className="site-form-item-icon" />}
-                                    type="password2"
+                                    type="password"
                                     placeholder="Confirm Password"
                                     />
                                 </Form.Item>
