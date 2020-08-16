@@ -45,6 +45,7 @@ const Login = (props) => {
       useEffect(() => {
         if(auth.isAuthenticated){
             history.push('/')
+            window.location.reload() // refresh body = hidden to enable scroll
         }else if(errors.usernamenotfound){
             alert(errors.usernamenotfound)
         }
@@ -112,12 +113,12 @@ const Login = (props) => {
                                     </Button>
                                     
                                 </Form.Item>
-                                <div onClick={logoutClick}>
+                                {/* <div onClick={logoutClick}>
                                     logout
                                 </div>
                                 <div>
                                     {user.username ? user.username : ''}
-                                </div>
+                                </div> */}
                                 
                             </Form>
                         </div>

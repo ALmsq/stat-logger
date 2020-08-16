@@ -38,6 +38,7 @@ const Register = (props) => {
     useEffect(() => {
         if(auth.isAuthenticated){
             history.push('/')
+            window.location.reload() // refresh body = hidden to enable scroll
         }
     })
 
