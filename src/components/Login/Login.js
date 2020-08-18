@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser, logoutUser } from '../../Redux/Actions/authActions'
+import { loginUser } from '../../Redux/Actions/authActions'
 import { useHistory } from 'react-router-dom'
 
 import LoginBackground from './LoginBackground'
 import { FormDiv, Wrapper } from './Login.styled'
-import { Row, Col, Form, Input, Button, Checkbox } from 'antd'
+import { Row, Col, Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import axios from 'axios'
+
 
 const Login = (props) => {
     const user = useSelector(state => state.auth.user )
@@ -38,10 +38,6 @@ const Login = (props) => {
             history.push('/')}
       };
 
-      const logoutClick = () => {
-          dispatch(logoutUser())
-      }
-
       useEffect(() => {
         if(auth.isAuthenticated){
             history.push('/')
@@ -49,7 +45,7 @@ const Login = (props) => {
         }else if(errors.usernamenotfound){
             alert(errors.usernamenotfound)
         }
-      }, [errors, auth])
+      }, [errors, auth, history])
 
       const handleRegister = () => {
         history.push('/register')
@@ -60,7 +56,6 @@ const Login = (props) => {
 
     return(
         <Wrapper>
-        {/* {getUsers()} */}
         <LoginBackground/>
             <FormDiv className='FormDiv'>
                 <Row>

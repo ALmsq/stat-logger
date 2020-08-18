@@ -15,7 +15,6 @@ const NavBar = () => {
     }
 
     const user = useSelector(state => state.auth.user)
-    console.log(user.username? 'yo' : 'nothing')
     return(
         <Affix>
             <Nav>
@@ -45,7 +44,7 @@ const NavBar = () => {
 
                     {user.username? <ProfileDiv>
                         <div onClick={logoutClick}>
-                            <a>logout</a>
+                            <a href='/#'>logout</a>
                         </div>
                     </ProfileDiv>: null}
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Row, Col, Form, Input, Button, Checkbox } from 'antd'
+import { Row, Col, Form, Input, Button} from 'antd'
 import 'antd/dist/antd.css'
 import axios from 'axios'
 
@@ -25,7 +25,6 @@ const layout = {
   
   const PostForm = (props) => {
 
-    const auth = useSelector(state => state.auth)
     const user = useSelector(state => state.auth.user)
 
     const onFinish = values => {

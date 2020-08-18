@@ -7,7 +7,6 @@ import NavBar from './components/Navbar/Navbar'
 import Login from './components/Login/Login'
 import Register from './components/Login/Register'
 import { Fragment } from 'reactn';
-import { useSelector } from 'react-redux'
 import store from './store'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
@@ -36,7 +35,7 @@ if(localStorage.jwtToken){
 
 function App() {
 
-  const auth = useSelector(state => state.auth)
+
   const [post, setPost] = useState([])
 
 
@@ -56,7 +55,7 @@ function App() {
   return (
     
     
-      <div>
+      
       <Switch>
         <Route exact path='/' render={() => 
         <Fragment>
@@ -73,7 +72,7 @@ function App() {
           <Register />
         </Fragment>}/>
       </Switch>
-    </div>
+    
     
   );
 }

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import PostForm from './PostForm'
-import { Button, List, Avatar, Divider } from 'antd'
+import { Button, List, Avatar} from 'antd'
 import axios from 'axios'
 import { useGlobal } from 'reactn'
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons'
-import { useForkRef } from '@material-ui/core'
+
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
@@ -15,7 +15,7 @@ dayjs.extend(relativeTime)
 
 const Posts = (props) => {
 
-    const [post, setPost] = useState([])
+    
     const [count, setCount] = useState(0)
     const [dislikeCount, setDislikeCount] = useState(0)
     const [postId, setPostId] = useState('')
@@ -88,30 +88,15 @@ const Posts = (props) => {
             })
         }, [postId2])
 
-        
+    const [profile] = useGlobal('profile')
+    const [profile1] = useGlobal('profile1')
+    // const [profile2] = useGlobal('profile2')
+    const [devPic] = useGlobal('devPic')
 
-    
-
-    
-    const [posts, setPosts] = useState([])
-
-
-    const [profile, setProfile] = useGlobal('profile')
-    const [profile1, setProfile1] = useGlobal('profile1')
-    const [profile2, setProfile2] = useGlobal('profile2')
-    const [devPic, setDevPic] = useGlobal('devPic')
-
-    let all = []
-    all = [...all, profile, profile1, profile2, devPic]
+    // let all = []
+    // all = [...all, profile, profile1, profile2, devPic]
 
     let image = ''
-
-    //////////////////////////////////////////////////////
-    //likes to setstate then --> to update backend with useeffect onchange
-    /////////////////////////////////////////////////////
-
-    const [likeCount, setLikeCount] = useState(0)
-
 
     const handleName = (item) => {
         let date = dayjs(item.date).fromNow()
@@ -119,15 +104,6 @@ const Posts = (props) => {
         return(<div style={{display: 'inline-flex'}}><div style={{marginRight: '10px'}}>{item.name}</div> · <div style={{marginLeft: '10px', color: '#a5a5a5'}}>{date}</div></div>)
         
     }
-    
-
-
-
-
-
-    
-
-
 
     return (
         <div>
@@ -141,16 +117,10 @@ const Posts = (props) => {
                 itemLayout="horizontal"
                 dataSource={props.post}
                 renderItem={item => {
-                    {if(item.name.toUpperCase() === 'PkSalsa'.toUpperCase()){
-                        image = profile.avatarfull
-                    }else if(item.name.toUpperCase() === 'Psychotic'.toUpperCase()){
-                        image = profile1.avatarfull
-                    }else if(item.name.toUpperCase() === 'PkChips'.toUpperCase()){
-                        image = devPic
-                    }else{
-                        image = "https://image.flaticon.com/icons/svg/3166/3166680.svg"
-                    }
-                }
+                    {item.name.toUpperCase() === 'pksalsa'.toUpperCase()? (image = profile.avatarfull)
+                    : item.name.toUpperCase() === 'Psychotic'.toUpperCase()? (image = profile1.avatarfull)
+                     : item.name.toUpperCase() === 'PkChips'.toUpperCase()? (image = devPic)
+                      : (image = "https://image.flaticon.com/icons/svg/3166/3166680.svg")}
                 
                     return(
                         <List.Item style={{borderBottom: '1px solid #dadada' }} key={item._id}>

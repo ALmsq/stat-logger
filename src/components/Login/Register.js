@@ -5,9 +5,9 @@ import { useHistory } from 'react-router-dom'
 
 import LoginBackground from './LoginBackground'
 import { FormDiv, Wrapper } from './Login.styled'
-import { Row, Col, Form, Input, Button, Checkbox } from 'antd'
+import { Row, Col, Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import axios from 'axios'
+
 
 const Register = (props) => {
 
@@ -53,7 +53,6 @@ const Register = (props) => {
     
     return(
         <Wrapper>
-        {/* {getUsers()} */}
         <LoginBackground/>
             <FormDiv className='FormDiv'>
                 <Row>

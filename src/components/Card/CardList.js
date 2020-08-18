@@ -4,28 +4,26 @@ import {Title} from './Card.styled'
 import styled from 'styled-components'
 import Skeleton from '@material-ui/lab/Skeleton'
 // import { Skeleton } from 'antd'
-import { useGlobal, setGlobal } from 'reactn'
+import { setGlobal } from 'reactn'
 
 
-
-
+const Wrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+`;
+const LoadDiv = styled.div`
+    
+    width: 250px;
+    height: 380px;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 2rem;
+    background-color: #00000057;
+`
 const CardList = () => {
 
-    const Wrapper = styled.div`
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        
-    `;
-    const LoadDiv = styled.div`
-        
-        width: 250px;
-        height: 380px;
-        border-radius: 4px;
-        padding: 1rem;
-        margin: 2rem;
-        background-color: #00000057;
-    `
 
     const [name, setName] = useState('');
     const [all, setAll] = useState([])
@@ -71,7 +69,6 @@ const CardList = () => {
     const [all1, setAll1] = useState([])
     const [profile1, setProfile1] = useState([])
     const [matchData1, setMatchData1] = useState([])
-    const [ass, setAss] = useState([])
     const timeoutRef1 = useRef(null)
     
     useEffect(() =>{
@@ -139,7 +136,6 @@ const CardList = () => {
             // setProfile2(info[0].profile)
             setProfile2(info)
             setAll2(info[0].mmr_estimate)
-            console.log(profile2)
             
         })
 
@@ -157,17 +153,6 @@ const CardList = () => {
     
     },[])
 
-    // useEffect(() =>{
-    //     let steam = []
-    //     fetch('http://cors-anywhere.herokuapp.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F0733CFAF1F99D6123E460DFD57E2F82&steamids=76561198087538983')
-    //         .then(res => res.json())
-    //         .then((data) =>{
-    //             steam = [...steam, data]
-    //             console.log(steam[0].response.players)
-    //             setProfile2(...profile2, steam[0].response.players.avatarfull )
-    //             console.log(profile2)
-    //         })
-    // },[])
 
     ////REACTN////
     setGlobal({
@@ -182,7 +167,7 @@ const CardList = () => {
         let deaths = []
         let avg = 0
         data.map(stats => {deaths = [...deaths, stats.deaths]
-            avg = average(deaths)
+            return(avg = average(deaths))
         })
         return(
            (avg)
@@ -192,7 +177,7 @@ const CardList = () => {
         let gpm = []
         let avg = 0
         data.map(stats => {gpm = [...gpm, stats.gold_per_min]
-            avg = average(gpm)
+            return(avg = average(gpm))
         })
         return(
            (avg)
@@ -203,7 +188,7 @@ const CardList = () => {
         let dmg = []
         let avg = 0
         data.map(stats => {dmg = [...dmg, stats.hero_damage]
-            avg = average(dmg)
+            return(avg = average(dmg))
         })
         return(
            (avg)
@@ -214,7 +199,7 @@ const CardList = () => {
         let kills = []
         let avg = 0
         data.map(stats => {kills = [...kills, stats.kills]
-            avg = average(kills)
+            return(avg = average(kills))
         })
         return(
            (avg)
