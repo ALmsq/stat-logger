@@ -88,7 +88,6 @@ const CardList = () => {
         .then(res => res.json())
         .then((data) =>{
             info = [...info, data]
-            console.log(info)
             setName1(info[0].profile.personaname)
             setProfile1(info[0].profile)
             setAll1(info[0].mmr_estimate)
@@ -108,6 +107,7 @@ const CardList = () => {
     const [name2, setName2] = useState('');
     const [all2, setAll2] = useState([])
     const [profile2, setProfile2] = useState([])
+    const [devPic, setDevPic] = useState('')
     const [matchData2, setMatchData2] = useState([])
     const timeoutRef2 = useRef(null)
     
@@ -115,45 +115,66 @@ const CardList = () => {
         let info = []
         let match = []
         let deaths = []
+        let steam = []
         if(timeoutRef2.current !== null){
             clearTimeout(timeoutRef2.current)
         }
         timeoutRef2.current = setTimeout(() => {
             timeoutRef2.current = null
-            fetch('https://api.opendota.com/api/players/127273255')
-        .then(res => res.json())
-        .then((data) =>{
-            info = [...info, data]
-            setName2(info[0].profile.personaname)
-            setProfile2(info[0].profile)
-            setAll2(info[0].mmr_estimate)
+
+            fetch('http://cors-anywhere.herokuapp.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F0733CFAF1F99D6123E460DFD57E2F82&steamids=76561198087538983')
+            .then(res => res.json())
+            .then((data) =>{
+            steam = [...steam, data]
+            setDevPic(steam[0].response.players[0].avatarfull)
+
             
         })
-            fetch('https://api.opendota.com/api/players/127273255/recentmatches')
+            
+            fetch('https://api.opendota.com/api/players/127273255')
+            .then(res => res.json())
+            .then((data) =>{
+                info = [...info, data]
+                setName2(info[0].profile.personaname)
+            // setProfile2(info[0].profile)
+            setProfile2(info)
+            setAll2(info[0].mmr_estimate)
+            console.log(profile2)
+            
+        })
+
+        
+
+        fetch('https://api.opendota.com/api/players/127273255/recentmatches')
             .then(res => res.json())
             .then((data) =>{
                 match = [...match, data]
                 setMatchData2(match[0])
                 match[0].map(stats => deaths = [...deaths, stats.deaths])
             })
+            
         }, 2000)  
+    
     },[])
 
     // useEffect(() =>{
-    //     let info = []
-    //     fetch('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F0733CFAF1F99D6123E460DFD57E2F82&steamids=76561198087538983')
+    //     let steam = []
+    //     fetch('http://cors-anywhere.herokuapp.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F0733CFAF1F99D6123E460DFD57E2F82&steamids=76561198087538983')
     //         .then(res => res.json())
     //         .then((data) =>{
     //             steam = [...steam, data]
-    //             console.log(steam)
+    //             console.log(steam[0].response.players)
+    //             setProfile2(...profile2, steam[0].response.players.avatarfull )
+    //             console.log(profile2)
     //         })
-    // })
+    // },[])
 
     ////REACTN////
     setGlobal({
         profile: profile,
         profile1: profile1,
         profile2: profile2,
+        devPic: devPic,
     })
 /////////////
 
@@ -207,10 +228,11 @@ const CardList = () => {
         {/* {console.log(all.estimate)}
         {console.log(profile)}
         {console.log('M',matchData1)}
-        {console.log(avgGpm(matchData))} */}
+    {console.log(avgGpm(matchData))} */}
 
             <Title main> Stats </Title>
             <Wrapper>
+               
                 
                 {name? (<Card
                 mmr={all.estimate} 
@@ -255,7 +277,7 @@ const CardList = () => {
                 title={name2} 
                 deaths={avgDeaths(matchData2)} 
                 // stats={'stats'} ≈
-                img={profile2.avatarfull} 
+                img={devPic} 
                 gpm={avgGpm(matchData2)} 
                 damage={avgDmg(matchData2)} 
                 kills={avgKills(matchData1)} />) : 

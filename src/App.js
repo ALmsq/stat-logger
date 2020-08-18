@@ -62,9 +62,6 @@ function App() {
         <Fragment>
           <NavBar/>
           <CardList/>
-          {/* { auth.isAuthenticated ? (
-          <Post post={post}/>
-          ): null} */}
           <Post post={post}/>
         </Fragment>}/>        
         <Route path='/login' render={() => 

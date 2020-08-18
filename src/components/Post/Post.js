@@ -99,9 +99,10 @@ const Posts = (props) => {
     const [profile, setProfile] = useGlobal('profile')
     const [profile1, setProfile1] = useGlobal('profile1')
     const [profile2, setProfile2] = useGlobal('profile2')
+    const [devPic, setDevPic] = useGlobal('devPic')
 
     let all = []
-    all = [...all, profile, profile1, profile2]
+    all = [...all, profile, profile1, profile2, devPic]
 
     let image = ''
 
@@ -130,7 +131,7 @@ const Posts = (props) => {
 
     return (
         <div>
-            {console.log(profile1.avatarfull)}
+            
             {auth.isAuthenticated ? (
                 <PostForm/>
             ): null}
@@ -145,7 +146,7 @@ const Posts = (props) => {
                     }else if(item.name.toUpperCase() === 'Psychotic'.toUpperCase()){
                         image = profile1.avatarfull
                     }else if(item.name.toUpperCase() === 'PkChips'.toUpperCase()){
-                        image = profile2.avatarfull
+                        image = devPic
                     }else{
                         image = "https://image.flaticon.com/icons/svg/3166/3166680.svg"
                     }
