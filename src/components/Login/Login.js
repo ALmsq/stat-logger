@@ -50,6 +50,10 @@ const Login = (props) => {
             alert(errors.usernamenotfound)
         }
       }, [errors, auth])
+
+      const handleRegister = () => {
+        history.push('/register')
+      }
       
 
     const {username, password} = login
@@ -108,9 +112,17 @@ const Login = (props) => {
                                 
 
                                 <Form.Item>
-                                    <Button type="primary" htmlType="submit" className="login-form-button">
-                                    Log in
-                                    </Button>
+                                    <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                                        <Button type="primary" htmlType="submit" className="login-form-button">
+                                        Log in
+                                        </Button>
+                                        <div>
+                                            
+                                        </div>
+                                        <Button onClick={handleRegister} type="primary" className="login-form-button">
+                                        Register
+                                        </Button>
+                                    </div>
                                     
                                 </Form.Item>
                                 {/* <div onClick={logoutClick}>

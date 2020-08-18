@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import PostForm from './PostForm'
 import { Button, List, Avatar, Divider } from 'antd'
 import axios from 'axios'
 import { useGlobal } from 'reactn'
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons'
 import { useForkRef } from '@material-ui/core'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime)
+
 
 
 const Posts = (props) => {
@@ -16,6 +22,8 @@ const Posts = (props) => {
     const [postId2, setPostId2] = useState('')
     
     
+    const auth = useSelector(state => state.auth)
+    const user = useSelector(state => state.auth.user)
 
 
     const handleDelete = (e, post) => {
@@ -104,7 +112,13 @@ const Posts = (props) => {
     const [likeCount, setLikeCount] = useState(0)
 
 
-
+    const handleName = (item) => {
+        let date = dayjs(item.date).fromNow()
+        // return(item.name + ' ' + '·' + ' ' + date)
+        return(<div style={{display: 'inline-flex'}}><div style={{marginRight: '10px'}}>{item.name}</div> · <div style={{marginLeft: '10px', color: '#a5a5a5'}}>{date}</div></div>)
+        
+    }
+    
 
 
 
@@ -116,21 +130,22 @@ const Posts = (props) => {
 
     return (
         <div>
+            {console.log(profile1.avatarfull)}
+            {auth.isAuthenticated ? (
+                <PostForm/>
+            ): null}
             
-            <PostForm/>
-
             <List
                 style={{marginLeft: '15%', marginRight: '15%', marginBottom: '5%'}}
                 itemLayout="horizontal"
                 dataSource={props.post}
                 renderItem={item => {
-                    
                     {if(item.name.toUpperCase() === 'PkSalsa'.toUpperCase()){
-                        image = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/04/04b36c6ea07c7747f4da718a5a2f33dcfa695abf_full.jpg"
+                        image = profile.avatarfull
                     }else if(item.name.toUpperCase() === 'Psychotic'.toUpperCase()){
-                        image = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/27/27b0405249110d7edf10bfc7c99414f2d720e02d_full.jpg"
+                        image = profile1.avatarfull
                     }else if(item.name.toUpperCase() === 'PkChips'.toUpperCase()){
-                        image = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2e/2e86ceb7ed6d7d152a074a6d77ec826fc9247700_full.jpg"
+                        image = profile2.avatarfull
                     }else{
                         image = "https://image.flaticon.com/icons/svg/3166/3166680.svg"
                     }
@@ -142,7 +157,7 @@ const Posts = (props) => {
                         
 
                       avatar={<Avatar src={image}  />}
-                      title={item.name}
+                      title={handleName(item)}
                       description={item.post}
                     />
                     
@@ -164,11 +179,12 @@ const Posts = (props) => {
                     style={{marginRight: '5px'}}
                     >
                         <Button type='primary' size='small' shape='circle' icon={<DislikeOutlined/>} danger/><div style={{textAlign: 'center', color: 'red'}}>{(dislikeCount >= 0 && item._id === postId2 ? dislikeCount +1 : item.dislike)}</div></div>
-
-                    <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button>
-                    
+                        {/* <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button> */}
+                        {auth.isAuthenticated? (
+                            (user.username.toUpperCase() === item.name.toUpperCase()? <Button onClick={e => handleDelete(e, item)} size='small' danger>Delete</Button>: null)
+                        ):(null)}
                   </List.Item>
-                
+                        
                     )
                 }}
             />

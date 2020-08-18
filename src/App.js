@@ -7,11 +7,12 @@ import NavBar from './components/Navbar/Navbar'
 import Login from './components/Login/Login'
 import Register from './components/Login/Register'
 import { Fragment } from 'reactn';
-import { Provider } from 'react-redux'
+import { useSelector } from 'react-redux'
 import store from './store'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import { setCurrentUser, logoutUser } from './Redux/Actions/authActions'
+// import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 
 //check for token to stay logged in
 if(localStorage.jwtToken){
@@ -33,9 +34,9 @@ if(localStorage.jwtToken){
   }
 }
 
-
 function App() {
 
+  const auth = useSelector(state => state.auth)
   const [post, setPost] = useState([])
 
 
@@ -48,17 +49,22 @@ function App() {
     })
     
   },[])
+  
 
 
 
   return (
-    <Provider store = {store}>
+    
+    
       <div>
       <Switch>
         <Route exact path='/' render={() => 
         <Fragment>
           <NavBar/>
           <CardList/>
+          {/* { auth.isAuthenticated ? (
+          <Post post={post}/>
+          ): null} */}
           <Post post={post}/>
         </Fragment>}/>        
         <Route path='/login' render={() => 
@@ -68,10 +74,10 @@ function App() {
         <Route path='/register' render={() => 
         <Fragment>
           <Register />
-        </Fragment>}/>c 
+        </Fragment>}/>
       </Switch>
     </div>
-    </Provider>
+    
   );
 }
 

@@ -32,6 +32,8 @@ const CardList = () => {
     const [profile, setProfile] = useState([])
     const [matchData, setMatchData] = useState([])
     const timeoutRef = useRef(null)
+    
+    
 
     
 
@@ -76,6 +78,7 @@ const CardList = () => {
         let info = []
         let match = []
         let deaths = []
+        
         if(timeoutRef1.current !== null){
             clearTimeout(timeoutRef1.current)
         }
@@ -85,6 +88,7 @@ const CardList = () => {
         .then(res => res.json())
         .then((data) =>{
             info = [...info, data]
+            console.log(info)
             setName1(info[0].profile.personaname)
             setProfile1(info[0].profile)
             setAll1(info[0].mmr_estimate)
@@ -97,6 +101,7 @@ const CardList = () => {
                 setMatchData1(match[0])
                 match[0].map(stats => deaths = [...deaths, stats.deaths])
             })
+            
         }, 2000)  
     },[])
     ///////////////////////////////////////////////////
@@ -133,6 +138,16 @@ const CardList = () => {
             })
         }, 2000)  
     },[])
+
+    // useEffect(() =>{
+    //     let info = []
+    //     fetch('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F0733CFAF1F99D6123E460DFD57E2F82&steamids=76561198087538983')
+    //         .then(res => res.json())
+    //         .then((data) =>{
+    //             steam = [...steam, data]
+    //             console.log(steam)
+    //         })
+    // })
 
     ////REACTN////
     setGlobal({
@@ -193,6 +208,7 @@ const CardList = () => {
         {console.log(profile)}
         {console.log('M',matchData1)}
         {console.log(avgGpm(matchData))} */}
+
             <Title main> Stats </Title>
             <Wrapper>
                 
