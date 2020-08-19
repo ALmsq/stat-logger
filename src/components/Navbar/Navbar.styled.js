@@ -17,4 +17,13 @@ export const NavDiv = styled.div`
 export const ProfileDiv = styled.div`
     margin-right: 10px
 `
+export const Img = styled.img`
+    height: 35px;
+    width: 35px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+`
 

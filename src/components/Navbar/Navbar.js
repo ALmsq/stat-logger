@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Nav, NavDiv, ProfileDiv } from './Navbar.styled'
+import { Nav, NavDiv, ProfileDiv, Img } from './Navbar.styled'
 import { Affix } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { logoutUser } from '../../Redux/Actions/authActions'
@@ -22,7 +22,8 @@ const NavBar = () => {
                     
                 </NavDiv>
                 <NavDiv>
-                    <h3>Stat App</h3>
+                    <Img src='https://image.flaticon.com/icons/svg/588/588267.svg'/>
+                    <h3>Stat Tracker</h3>
                 </NavDiv>
                 <NavDiv>
                     <ProfileDiv>
