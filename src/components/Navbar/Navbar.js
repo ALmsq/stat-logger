@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Nav, NavDiv, ProfileDiv, Img } from './Navbar.styled'
+import { Nav, NavDiv, ProfileDiv, Img, AvatarImg } from './Navbar.styled'
 import { Affix } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { logoutUser } from '../../Redux/Actions/authActions'
+import { useGlobal } from 'reactn'
 
 
 
@@ -13,22 +14,41 @@ const NavBar = () => {
     const logoutClick = () => {
         dispatch(logoutUser())
     }
+    const [salsaPic] = useGlobal('salsaPic')
+    const [psyPic] = useGlobal('psyPic')
+    const [devPic] = useGlobal('devPic')
+
+
 
     const user = useSelector(state => state.auth.user)
+
+    // logic for determining avatar for name(possibly temp before steam login auth)
+    let image = ''
+    // (user.username.toUpperCase() === 'pksalsa'.toUpperCase()? (image = salsaPic)
+    // : user.username.toUpperCase() === 'Psychotic'.toUpperCase()? (image = psyPic)
+    // : user.username.toUpperCase() === 'PkChips'.toUpperCase()? (image = devPic)
+    // : null) 
+
     return(
         <Affix>
             <Nav>
                 <NavDiv>
                     
                 </NavDiv>
-                <NavDiv>
-                    <Img src='https://image.flaticon.com/icons/svg/588/588267.svg'/>
-                    <h3>Stat Tracker</h3>
+                <NavDiv style={{marginTop: '8px'}} >
+                    <Img src='https://image.flaticon.com/icons/svg/588/588267.svg' style={{marginRight: '10px', marginBottom: '3px'}} />
+                    <h3 style={{marginTop: '3px'}} >Stat Tracker</h3>
                 </NavDiv>
                 <NavDiv>
                     <ProfileDiv>
                         <div>
-                            <UserOutlined/>
+                        
+                        {/* {user.username? <AvatarImg src={image}/> : <UserOutlined/>} */}
+                        {user.username? user.username.toUpperCase() === 'pksalsa'.toUpperCase()? (<AvatarImg src={salsaPic}/>)
+                        : user.username.toUpperCase() === 'Psychotic'.toUpperCase()? (<AvatarImg src={psyPic}/>)
+                        : user.username.toUpperCase() === 'PkChips'.toUpperCase()? (<AvatarImg src={devPic}/>)
+                        : null : <UserOutlined/>}
+                                                
                         </div>
                     </ProfileDiv>
                     <ProfileDiv>

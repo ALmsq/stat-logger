@@ -30,6 +30,7 @@ const CardList = () => {
     const [profile, setProfile] = useState([])
     const [matchData, setMatchData] = useState([])
     const timeoutRef = useRef(null)
+    const [salsaPic, setSalsaPic] = useState('')
     
     
 
@@ -41,11 +42,22 @@ const CardList = () => {
         let info = []
         let match = []
         let deaths = []
+        let steam = []
         if(timeoutRef.current !== null){
             clearTimeout(timeoutRef.current)
         }
         timeoutRef.current = setTimeout(() => {
             timeoutRef.current = null
+
+            fetch('http://cors-anywhere.herokuapp.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F0733CFAF1F99D6123E460DFD57E2F82&steamids=76561198037517308')
+            .then(res => res.json())
+            .then((data) =>{
+            steam = [...steam, data]
+            setSalsaPic(steam[0].response.players[0].avatarfull)
+
+            
+        })
+
             fetch('https://api.opendota.com/api/players/77251580')
         .then(res => res.json())
         .then((data) =>{
@@ -70,17 +82,29 @@ const CardList = () => {
     const [profile1, setProfile1] = useState([])
     const [matchData1, setMatchData1] = useState([])
     const timeoutRef1 = useRef(null)
+    const [psyPic, setPsyPic] = useState('')
     
     useEffect(() =>{
         let info = []
         let match = []
         let deaths = []
+        let steam = []
         
         if(timeoutRef1.current !== null){
             clearTimeout(timeoutRef1.current)
         }
         timeoutRef1.current = setTimeout(() => {
             timeoutRef1.current = null
+
+            fetch('http://cors-anywhere.herokuapp.com/http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F0733CFAF1F99D6123E460DFD57E2F82&steamids=76561198090536594')
+            .then(res => res.json())
+            .then((data) =>{
+            steam = [...steam, data]
+            setPsyPic(steam[0].response.players[0].avatarfull)
+
+            
+        })
+
             fetch('https://api.opendota.com/api/players/130270866')
         .then(res => res.json())
         .then((data) =>{
@@ -159,6 +183,8 @@ const CardList = () => {
         profile: profile,
         profile1: profile1,
         profile2: profile2,
+        salsaPic: salsaPic,
+        psyPic: psyPic,
         devPic: devPic,
     })
 /////////////
