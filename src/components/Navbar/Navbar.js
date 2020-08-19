@@ -22,12 +22,6 @@ const NavBar = () => {
 
     const user = useSelector(state => state.auth.user)
 
-    // logic for determining avatar for name(possibly temp before steam login auth)
-    let image = ''
-    // (user.username.toUpperCase() === 'pksalsa'.toUpperCase()? (image = salsaPic)
-    // : user.username.toUpperCase() === 'Psychotic'.toUpperCase()? (image = psyPic)
-    // : user.username.toUpperCase() === 'PkChips'.toUpperCase()? (image = devPic)
-    // : null) 
 
     return(
         <Affix>
