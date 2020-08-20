@@ -50,7 +50,7 @@ const CardList = () => {
         timeoutRef.current = setTimeout(() => {
             timeoutRef.current = null
 
-            fetch(`api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=76561198037517308`)
+            fetch(`http://cors-anywhere.herokuapp.com/http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=76561198037517308`)
             .then(res => res.json())
             .then((data) =>{
             steam = [...steam, data]
@@ -144,7 +144,7 @@ const CardList = () => {
         timeoutRef2.current = setTimeout(() => {
             timeoutRef2.current = null
 
-            fetch(`http://cors-anywhere.herokuapp.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=76561198087538983`)
+            fetch(`http://cors-anywhere.herokuapp.com/http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=76561198087538983`)
             .then(res => res.json())
             .then((data) =>{
             steam = [...steam, data]

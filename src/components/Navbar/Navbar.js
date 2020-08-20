@@ -25,6 +25,7 @@ const NavBar = () => {
 
     return(
         <Affix>
+        
             <Nav>
                 <NavDiv>
                     
@@ -36,7 +37,7 @@ const NavBar = () => {
                 <NavDiv>
                     <ProfileDiv>
                         <div>
-                        
+                        {console.log(salsaPic, psyPic)}
                         {/* {user.username? <AvatarImg src={image}/> : <UserOutlined/>} */}
                         {user.username? user.username.toUpperCase() === 'pksalsa'.toUpperCase()? (<AvatarImg src={salsaPic}/>)
                         : user.username.toUpperCase() === 'Psychotic'.toUpperCase()? (<AvatarImg src={psyPic}/>)
