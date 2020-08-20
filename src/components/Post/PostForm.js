@@ -31,7 +31,7 @@ const layout = {
       console.log('Success:', values);
       console.log(values.Name)
       console.log(values.Post)
-      axios.post('http://localhost:4000/posts', {
+      axios.post('https://stat-tracker-backend.herokuapp.com/posts', {
           name: user.username,
           post: values.Post
       })

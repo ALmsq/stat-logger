@@ -41,7 +41,7 @@ function App() {
 
 
   useEffect(() =>{
-    fetch('http://localhost:4000/posts')
+    fetch('https://stat-tracker-backend.herokuapp.com/posts')
     .then(res => res.json())
     .then((data) =>{
       setPost(data)

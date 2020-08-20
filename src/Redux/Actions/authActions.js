@@ -9,7 +9,7 @@ import {
 
 //Registration
 export const registerUser = (userData, history) => dispatch => {
-    axios.post('http://localhost:4000/users/register', userData)
+    axios.post('https://stat-tracker-backend.herokuapp.com/users/register', userData)
     .then(res => history.push('/login'))
     .catch(err => 
         dispatch({
@@ -21,7 +21,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 //Login
 export const loginUser = userData => dispatch => {
-    axios.post('http://localhost:4000/users/login', userData)
+    axios.post('https://stat-tracker-backend.herokuapp.com/users/login', userData)
     .then(res => {
         //Set token to localstorage
         const { token } = res.data

@@ -28,7 +28,7 @@ const Posts = (props) => {
 
     const handleDelete = (e, post) => {
         console.log(post._id)
-        axios.delete(`http://localhost:4000/post/${post._id}`)
+        axios.delete(`https://stat-tracker-backend.herokuapp.com/post/${post._id}`)
         .then((res) =>{
             console.log(res)
         })
@@ -43,7 +43,7 @@ const Posts = (props) => {
     const handleLike = (e, post) => {
         setPostId(post._id)
         
-        axios.put(`http://localhost:4000/post/${post._id}`, {
+        axios.put(`https://stat-tracker-backend.herokuapp.com/post/${post._id}`, {
                 like: post.like+1
             })
             .then((res) =>{
@@ -57,7 +57,7 @@ const Posts = (props) => {
 
     const handleDislike = (e, post) => {
         setPostId2(post._id)
-            axios.put(`http://localhost:4000/post/${post._id}`, {
+            axios.put(`https://stat-tracker-backend.herokuapp.com/post/${post._id}`, {
                 dislike: post.dislike+1
             })
             .then((res) =>{
@@ -71,7 +71,7 @@ const Posts = (props) => {
 
         useEffect(() =>{
             
-            fetch(`http://localhost:4000/post/${postId}`)
+            fetch(`https://stat-tracker-backend.herokuapp.com/post/${postId}`)
             .then(res => res.json())
             .then((data) =>{
               
@@ -80,7 +80,7 @@ const Posts = (props) => {
           },[postId])
 
         useEffect(() => {
-            fetch(`http://localhost:4000/post/${postId2}`)
+            fetch(`https://stat-tracker-backend.herokuapp.com/post/${postId2}`)
             .then(res => res.json())
             .then((data) =>{
               
