@@ -2,6 +2,13 @@ body {
     margin: 0;
     background: #F5F0F6;
   }
+  .siteWrap{
+    position: fixed;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll !important;
+}
   
   .background {
     width: 100vw;
