@@ -90,7 +90,7 @@ const Posts = (props) => {
 
     const [profile] = useGlobal('profile')
     const [profile1] = useGlobal('profile1')
-    // const [profile2] = useGlobal('profile2')
+    const [profile2] = useGlobal('profile2')
     const [devPic] = useGlobal('devPic')
 
     // let all = []

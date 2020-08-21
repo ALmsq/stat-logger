@@ -294,7 +294,7 @@ const CardList = () => {
                 img={devPic} 
                 gpm={avgGpm(matchData2)} 
                 damage={avgDmg(matchData2)} 
-                kills={avgKills(matchData1)} />) : 
+                kills={avgKills(matchData2)} />) : 
                 <LoadDiv>
                 <Skeleton variant="text" width={50}/>
                 <br></br>
