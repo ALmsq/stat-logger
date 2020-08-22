@@ -41,8 +41,13 @@ const layout = {
       .catch((err) =>{
           console.log(err)
       })
-      window.location.reload()
+      setTimeout(() => {          //tries to reload before post request
+        window.location.reload()
+      }, 10);
+
     };
+
+    
   
     const onFinishFailed = errorInfo => {
       console.log('Failed:', errorInfo);
