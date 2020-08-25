@@ -74,6 +74,7 @@ const Register = (props) => {
                             width: 'auto',
                             margin: '25px'
                             }}> 
+                            <div style={{textAlign: 'left'}}><a href='/'>back</a></div>
                             <div>REGISTER</div>
                             <Form
                                 name="normal_login"
@@ -121,6 +122,9 @@ const Register = (props) => {
                                     <Button type="primary" htmlType="submit" className="login-form-button">
                                     Register
                                     </Button>
+                                    <div style={{marginTop: '20px'}}>
+                                        Already have an account? <a href='/login' >Log in</a>
+                                    </div>
                                     
                                 </Form.Item>
                             </Form>

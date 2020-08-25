@@ -72,11 +72,14 @@ const Login = (props) => {
                         borderRadius: '4px',
                         opacity: '90%'
                         }} span={8}>
+
                         <div style={{
                             height: 'auto', 
                             width: 'auto',
                             margin: '25px'
-                            }}> LOGIN
+                            }}>
+                            <div style={{textAlign: 'left'}}><a href='/'>back</a></div>
+                            <div>LOGIN</div>
                             <Form
                                 name="normal_login"
                                 className="login-form"
@@ -107,17 +110,23 @@ const Login = (props) => {
                                 
 
                                 <Form.Item>
-                                    <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                                <div>
+                                    <div>
                                         <Button type="primary" htmlType="submit" className="login-form-button">
                                         Log in
                                         </Button>
-                                        <div>
+                                    </div>
+
+                                    <div style={{marginTop: '20px'}}>
+                                        Don't have an account? <a href='/register' >Sign up</a>
+                                    </div>
                                             
-                                        </div>
+                                    {/* <div style={{marginTop: '20px'}}>
                                         <Button onClick={handleRegister} type="primary" className="login-form-button">
                                         Register
                                         </Button>
-                                    </div>
+                                    </div> */}
+                                </div>
                                     
                                 </Form.Item>
                                 {/* <div onClick={logoutClick}>
