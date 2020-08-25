@@ -8,9 +8,9 @@ DotA2 Stat Logger is an app dedicated to the real-time tracking of match-data in
 
 ## Getting Started
 
-clone this repo, and cd into the directory
+Clone this repo, and cd into the directory
 
-running the Frontend:
+Running the Frontend:
 
 * `npm install` 
 * `npm start`
