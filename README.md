@@ -25,7 +25,7 @@ Running this app on a Heroku server with MongoDB
 
 **Authentication**
 
-![ScreenShot](src/images/img3.png)
+![ScreenShot](src/images/img6.png)
 
 Auth is implemented on the backend with Passport-jwt auth. 
 
